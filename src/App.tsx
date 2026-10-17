@@ -756,13 +756,13 @@ return (
 <motion.div className="hero-glow" aria-hidden="true" initial={{ opacity: 0 }} animate={{ opacity: entered ? 1 : 0 }} transition={{ duration: revealDurations.ornament, delay: 0.12, ease: imageEase }} />
 <div className="hero-copy">
 <motion.div className="motion-eyebrow" data-reveal="" initial={{ opacity: 0, x: -16, letterSpacing: '.24em' }} animate={entered ? { opacity: 1, x: 0, letterSpacing: '.19em' } : { opacity: 0, x: -16, letterSpacing: '.24em' }} transition={{ duration: revealDurations.text, delay: heroOverlapDelays.eyebrow, ease }}>
-<SectionLabel>Made for Elaina</SectionLabel>
+<SectionLabel>Omedetou, Elaina</SectionLabel>
 </motion.div>
 <motion.h1 data-reveal="" initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }} animate={entered ? { opacity: 1, clipPath: 'inset(0 0 0% 0)' } : { opacity: 0, clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: revealDurations.text, delay: heroOverlapDelays.heading, ease }}>
 Happy Birthday,<br /><em>Elaina!</em>
 </motion.h1>
 <motion.p className="hero-subtitle" data-reveal="" initial={{ opacity: 0, x: 40 }} animate={entered ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }} transition={{ duration: revealDurations.text, delay: heroOverlapDelays.supporting, ease }}>
-My favorite witch since 2020. This little birthday page is for you.
+Since 2020, your journey has stayed with me. I made this little page just for you. ♡
 </motion.p>
 <motion.button type="button" className="text-link" data-reveal="" onClick={() => scrollToSection('elaina')} initial={{ opacity: 0, y: 25 }} animate={entered ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }} transition={{ duration: revealDurations.text, delay: heroOverlapDelays.link, ease }}>
 Explore the page <ArrowRight size={16} />
@@ -786,9 +786,9 @@ return (
 <Reveal className="profile-art-column profile-art-column-gfx" from="left" kind="image" delay={entrance.image}><ProfileGfxArtwork /></Reveal>
 <div className="profile-copy">
 <Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>THE ASHEN WITCH</SectionLabel></Reveal>
-<Reveal technique="mask" delay={entrance.heading}><h2>Why <em>Elaina?</em></h2><p className="eyebrow">WHAT I LIKE ABOUT HER</p></Reveal>
-<Reveal delay={entrance.supporting} from="right"><p className="body-copy">I like her curiosity, her confidence, and the way every journey brings a new story.</p></Reveal>
-<Reveal className="profile-footnote" delay={entrance.ornament} kind="ornament"><span>✳</span><span>Still my favorite witch.</span></Reveal>
+<Reveal technique="mask" delay={entrance.heading}><h2>Sou, <em>watashi desu!</em></h2><p className="eyebrow">THE CUTEST WITCH? OBVIOUSLY.</p></Reveal>
+<Reveal delay={entrance.supporting} from="right"><p className="body-copy">A bookworm who became a witch to follow the stories she loved. Curious, proud, and just a little too sure of herself—that’s Elaina. ♡</p></Reveal>
+<Reveal className="profile-footnote" delay={entrance.ornament} kind="ornament"><span>✳</span><span>Yappari, Elaina ga ichiban! </span></Reveal>
 </div>
 <span className="section-number">02 / 06</span>
 </section>
@@ -796,8 +796,8 @@ return (
 });
 //=================
 const chapters = [
-{ number: 'I', title: 'The journeys', text: 'Every place has its own story.', art: 'journeyOne' as const, alt: 'Elaina on the open road' },
-{ number: 'II', title: 'Elaina herself', text: "She's the reason this series became special to me.", art: 'journeyTwo' as const, alt: 'Elaina discovering a new place' },
+{ number: 'I', title: 'The journeys', text: "Inspired by Nike's stories, she set off to see the world herself.", art: 'journeyOne' as const, alt: 'Elaina on the open road' },
+{ number: 'II', title: 'Elaina herself', text: "A little pride, a sharp tongue, and a heart she doesn't always show.", art: 'journeyTwo' as const, alt: 'Elaina discovering a new place' },
 ];
 //=================
 const Journey = memo(function Journey() {
@@ -808,7 +808,7 @@ return (
 <div className="section-heading">
 <Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>FROM MAJO NO TABITABI</SectionLabel></Reveal>
 <Reveal technique="mask" delay={entrance.heading}><h2>Elaina's <em>world</em></h2></Reveal>
-<Reveal delay={entrance.supporting}><p>Two things I'll always love about the series.</p></Reveal>
+<Reveal delay={entrance.supporting}><p>Tabi no saki de, mata hitotsu no monogatari.</p></Reveal>
 </div>
 <div className="journey-route" aria-hidden="true"><span /><i /><span /></div>
 <div className="chapter-grid">
@@ -817,7 +817,7 @@ return (
 <div className="chapter-photo-canvas">
 <Artwork name={chapter.art} alt={chapter.alt} className="chapter-art" />
 <div className="chapter-photo-mark" aria-hidden="true">
-<span>POSTCARD 0{index + 1}</span>
+<span>ELAINA NO TABI 0{index + 1}</span>
 <i>{String(index + 1).padStart(2, '0')} / 02</i>
 </div>
 </div>
@@ -825,7 +825,7 @@ return (
 <Reveal className="chapter-caption" delay={0.88 + index * 0.18}><span className="chapter-number">{chapter.number}</span><div><h3>{chapter.title}</h3><p>{chapter.text}</p></div><Reveal className="chapter-star" delay={0.32 + index * 0.16} kind="ornament"><span>✳</span></Reveal></Reveal>
 </div>)}
 </div>
-<footer className="site-footer"><span>© Kagenou · A birthday page for Elaina</span></footer>
+<footer className="site-footer"><span>© Kagenou · Elaina e, omedetou ♡</span></footer>
 <span className="section-number">06 / 06</span>
 </section>
 );
@@ -836,11 +836,11 @@ return (
 <section id="letter" data-scroll-layer="0.5" className="letter-section story-section">
 <SectionAtmosphere variant="letter" />
 <SectionDoodles variant="letter" />
-<div className="letter-copy"><Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>A NOTE FROM KAGENOU</SectionLabel></Reveal><Reveal technique="mask" delay={entrance.heading}><h2>A note for <em>Elaina</em></h2></Reveal>
+<div className="letter-copy"><Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>FROM KAGENOU, WITH LOVE</SectionLabel></Reveal><Reveal technique="mask" delay={entrance.heading}><h2>Dear <em>Elaina</em></h2></Reveal>
 <div className="letter-text">
 <Reveal delay={0.82} from="right"><p>Dear Elaina,</p></Reveal>
-<Reveal delay={0.94} from="right"><p>Happy birthday! I'm glad Majo no Tabitabi introduced me to you.</p></Reveal>
-<Reveal delay={1.06} from="right"><p>I hope this little message brings a smile to your day.</p></Reveal>
+<Reveal delay={0.94} from="right"><p>Happy birthday! I'm glad Majo no Tabitabi brought your story into my life.</p></Reveal>
+<Reveal delay={1.06} from="right"><p>Been following your journey since 2020. I made this little page just to say: arigatou, Elaina. ♡</p></Reveal>
 <Reveal delay={1.3} from="right"><p className="letter-signoff">— Kagenou</p></Reveal>
 </div>
 </div>
@@ -856,9 +856,9 @@ return (
 <SectionAtmosphere variant="finale" />
 <SectionDoodles variant="finale" />
 <div className="finale-copy">
-<Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>A BIRTHDAY WISH</SectionLabel></Reveal>
+<Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>OTANJOUBI OMEDETOU</SectionLabel></Reveal>
 <Reveal technique="mask" delay={entrance.heading}><h2>Keep wandering,<br /><em>Elaina.</em></h2></Reveal>
-<Reveal className="finale-message" delay={entrance.supporting}><p>Happy birthday, Elaina.</p><p>I hope we get to see more of your adventures.</p></Reveal>
+<Reveal className="finale-message" delay={entrance.supporting}><p>Kore kara mo, ii tabi o.</p><p>May there always be another story waiting down the road. ♡</p></Reveal>
 </div>
 <Reveal className="finale-art-wrap" from="left" kind="image" delay={0.5}>
 <div className="finale-gfx-slashes" aria-hidden="true"><i /><i /><i /><i /><i /></div>
@@ -876,10 +876,10 @@ return (
 <SectionAtmosphere variant="keepsake" />
 <SectionDoodles variant="keepsake" />
 <div className="letter-copy keepsake-copy">
-<Reveal technique="eyebrow" delay={entrance.eyebrow} from="left"><SectionLabel>A LITTLE BIRTHDAY GIFT</SectionLabel></Reveal>
-<Reveal technique="mask" delay={entrance.heading} from="left"><h2>Something I made <em>for you.</em></h2></Reveal>
-<Reveal delay={entrance.supporting} from="left"><p className="body-copy">I wanted to do more than post a birthday wish, so I made this little tribute.</p></Reveal>
-<Reveal className="profile-footnote" delay={entrance.ornament} kind="ornament"><span>✳</span><span>From Kagenou, with love.</span></Reveal>
+<Reveal technique="eyebrow" delay={entrance.eyebrow} from="left"><SectionLabel>CHIISANA PRESENTO</SectionLabel></Reveal>
+<Reveal technique="mask" delay={entrance.heading} from="left"><h2>A little gift, <em>just for you.</em></h2></Reveal>
+<Reveal delay={entrance.supporting} from="left"><p className="body-copy">A birthday wish felt too small, so I made you this little corner of the internet. ♡</p></Reveal>
+<Reveal className="profile-footnote" delay={entrance.ornament} kind="ornament"><span>✳</span><span>Kagenou yori, kokoro o komete.</span></Reveal>
 </div>
 <Reveal className="keepsake-art-column" from="right" kind="image" delay={entrance.image}>
 <Artwork name="keepsake" alt="Elaina with a small puppet familiar" className="keepsake-art" characterBackdrop />
@@ -921,7 +921,7 @@ return (
  className={`splash-screen${active ? ' is-active' : ''}`}
 role={active ? 'dialog' : 'region'}
 aria-modal={active}
-aria-label={active ? "Swipe up to enter Elaina's birthday page by Kagenou" : 'Birthday page for Elaina by Kagenou'}
+aria-label={active ? "Tanjoubi omedetou, Elaina" : "Elaina birthday tribute"}
 aria-hidden={!active}
 tabIndex={active ? 0 : -1}
 onPointerDown={handlePointerDown}
@@ -937,13 +937,13 @@ onKeyDown={handleKeyDown}
 </motion.div>
 <motion.div className="splash-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: animationDuration(1), ease }}>
 <div className="splash-title-group">
-<motion.span className="splash-eyebrow" initial={{ opacity: 0, x: -18 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.36, duration: animationDuration(0.75), ease }}><i /> A birthday page by Kagenou <i /></motion.span>
+<motion.span className="splash-eyebrow" initial={{ opacity: 0, x: -18 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.36, duration: animationDuration(0.75), ease }}><i /> Tanjoubi omedetou <i /></motion.span>
 <motion.h1 id="splash-title" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .2, duration: animationDuration(.9), ease }}>Elaina</motion.h1>
 <motion.span className="splash-rule" aria-hidden="true" initial={{ opacity: 0, scaleX: 0.45 }} animate={{ opacity: 1, scaleX: 1 }} transition={{ delay: 0.62, duration: animationDuration(0.8), ease }}><i /><span>✦</span><i /></motion.span>
-<motion.p className="splash-tagline" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.76, duration: animationDuration(0.8), ease }}>For my favorite witch.</motion.p>
+
 </div>
 </motion.div>
-<motion.span className="splash-swipe-hint" aria-hidden="true" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .2, duration: animationDuration(.9), ease }}><span>SWIPE UP TO BEGIN</span><ArrowUp size={18} /></motion.span>
+<motion.span className="splash-swipe-hint" aria-hidden="true" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .2, duration: animationDuration(.9), ease }}><span>SWIPE UP</span><ArrowUp size={18} /></motion.span>
 </div>
 );
 }
