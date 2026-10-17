@@ -459,235 +459,6 @@ setActive((previous) => previous === currentId ? previous : currentId);
 return;
 }
 const groupMarker = window.scrollY + window.innerHeight * 0.4;
-let groupStart = document.getElementById('splash')?.offselassName = '', delay = 0, from = 'up', kind = 'text', technique = 'default' }: { children: ReactNode; className?: string; delay?: number; from?: 'left' | 'right' | 'up' | 'down' | 'right-down'; kind?: 'text' | 'image' | 'ornament'; technique?: RevealTechnique }) {
-const revealRef = useRef<HTMLDivElement>(null);
-const [isInView, setIsInView] = useState(false);
-const [observerDelay, setObserverDelay] = useState<number | null>(null);
-useEffect(() => {
-const element = revealRef.current;
-if (isInView || !element) return;
-let stopObserving = () => {};
-const beginObserving = () => {
-stopObserving = observeOnce(element, revealObserverOptions(0.16, true), (entry) => {
-const duration = revealDurations[kind];
-const easing = kind === 'image' ? imageEase : ease;
-const transitionDelay = transitionRevealDelay(element, entry.time, duration, easing);
-if (transitionDelay !== null) setObserverDelay(transitionDelay);
-setIsInView(true);
-});
-};
-const unsubscribe = subscribeToStoryStart(beginObserving);
-return () => { unsubscribe(); stopObserving(); };
-}, [isInView, kind]);
-const compact = isMobileStoryLayout();
-const distance = compact ? 24 : Math.min(52, Math.max(40, window.innerWidth * 0.035));
-const offset = from === 'left' ? { x: -distance } : from === 'right' ? { x: distance } : from === 'right-down' ? { x: distance * 0.55, y: distance * 0.28 } : from === 'down' ? { y: -16 } : { y: kind === 'image' ? 16 : 12 };
-const initial = technique === 'mask'
-? { opacity: 0, y: 12 }
-: technique === 'eyebrow'
-? { opacity: 0, x: -16, letterSpacing: '.24em' }
-: kind === 'image' ? { opacity: 0, ...offset, scale: 0.97 } : kind === 'ornament' ? { opacity: 0, ...offset, scale: 0.82, rotate: -8 } : { opacity: 0, ...offset };
-const visible = technique === 'mask'
-? { opacity: 1, x: 0, y: 0 }
-: technique === 'eyebrow'
-? { opacity: 1, x: 0, letterSpacing: '.19em' }
-: { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 };
-const effectiveDelay = observerDelay ?? (revealRef.current ? revealDelay(delay, revealRef.current, kind) : 0);
-return (
-<motion.div
-className={`${className} motion-${technique}`.trim()}
-data-reveal=""
-ref={revealRef}
-initial={initial}
-animate={isInView ? visible : initial}
-transition={{ duration: revealDurations[kind], delay: effectiveDelay, ease: kind === 'image' ? imageEase : ease }}
->
-{technique === 'mask' ? (
-<motion.div
-className="motion-mask-window"
-initial={{ clipPath: 'inset(0 0 100% 0)' }}
-animate={isInView ? { clipPath: 'inset(0 0 0% 0)' } : { clipPath: 'inset(0 0 100% 0)' }}
-transition={{ duration: revealDurations[kind], delay: effectiveDelay, ease }}
->
-{children}
-</motion.div>
-) : children}
-</motion.div>
-);
-}
-//=================
-function SectionAtmosphere({ variant }: { variant: 'hero' | 'profile' | 'journey' | 'letter' | 'finale' | 'keepsake' }) {
-const atmosphereRef = useRef<HTMLDivElement>(null);
-const [isInView, setIsInView] = useState(false);
-const [observerDelay, setObserverDelay] = useState<number | null>(null);
-useEffect(() => {
-const element = atmosphereRef.current;
-if (isInView || !element) return;
-let stopObserving = () => {};
-const beginObserving = () => {
-stopObserving = observeOnce(element, revealObserverOptions(0.08), (entry) => {
-const transitionDelay = transitionRevealDelay(element, entry.time, revealDurations.ornament, imageEase);
-if (transitionDelay !== null) setObserverDelay(transitionDelay);
-setIsInView(true);
-});
-};
-const unsubscribe = subscribeToStoryStart(beginObserving);
-return () => { unsubscribe(); stopObserving(); };
-}, [isInView]);
-return (
-<motion.div
-className={`section-atmosphere section-atmosphere-${variant}`}
-data-section-atmosphere=""
-aria-hidden="true"
-ref={atmosphereRef}
-initial={{ opacity: 0 }}
-animate={{ opacity: isInView ? 1 : 0 }}
-transition={{ duration: revealDurations.ornament, delay: observerDelay ?? ambientRevealDelay(), ease: imageEase }}
-/>
-);
-}
-//=================
-function SectionDoodles({ variant }: { variant: 'hero' | 'profile' | 'journey' | 'letter' | 'finale' | 'keepsake' }) {
-const doodlesRef = useRef<HTMLDivElement>(null);
-const [isInView, setIsInView] = useState(false);
-const [observerDelay, setObserverDelay] = useState<number | null>(null);
-useEffect(() => {
-const element = doodlesRef.current;
-if (isInView || !element) return;
-let stopObserving = () => {};
-const beginObserving = () => {
-stopObserving = observeOnce(element, revealObserverOptions(0.08), (entry) => {
-const transitionDelay = transitionRevealDelay(element, entry.time, revealDurations.ornament, imageEase);
-if (transitionDelay !== null) setObserverDelay(transitionDelay);
-setIsInView(true);
-});
-};
-const unsubscribe = subscribeToStoryStart(beginObserving);
-return () => { unsubscribe(); stopObserving(); };
-}, [isInView]);
-
-return (
-<motion.div
-ref={doodlesRef}
-className={`section-doodles section-doodles-${variant}`}
-aria-hidden="true"
-initial={{ opacity: 0 }}
-animate={{ opacity: isInView ? 1 : 0 }}
-transition={{ duration: revealDurations.ornament, delay: observerDelay ?? ambientRevealDelay(), ease: imageEase }}
->
-<span className="doodle-slashes doodle-slashes-a" />
-<span className="doodle-slashes doodle-slashes-b" />
-<span className="doodle-star doodle-star-a">✣</span>
-<span className="doodle-star doodle-star-b">✦</span>
-<span className="doodle-cross" />
-<span className="doodle-dots" />
-<svg className="doodle-hexes" viewBox="0 0 100 100">
-<polygon points="28,5 48,16 48,39 28,50 8,39 8,16" />
-<polygon points="68,35 88,46 88,69 68,80 48,69 48,46" />
-<polygon points="28,61 42,69 42,85 28,93 14,85 14,69" />
-</svg>
-<svg className="doodle-orbit" viewBox="0 0 140 100">
-<path d="M8 60C24 17 91 8 127 34c24 18 5 48-28 51C58 89 28 74 35 50c5-17 32-24 54-18" />
-<circle cx="9" cy="60" r="2" /><circle cx="127" cy="34" r="2" />
-</svg>
-</motion.div>
-);
-}
-//=================
-function Artwork({ name, alt, className = '', characterBackdrop = false }: { name: keyof typeof ELAINA_ASSETS; alt: string; className?: string; characterBackdrop?: boolean }) {
-const [failed, setFailed] = useState(false);
-const src = ELAINA_ASSETS[name];
-return (
-<div className={`artwork ${className}${characterBackdrop ? ' character-art' : ''}`}>
-{characterBackdrop && <CharacterBlockEffect className="character-art-backdrop" />}
-{!failed && src ? (
-<img src={src} alt={alt} draggable={false} loading={name === 'hero' ? 'eager' : 'lazy'} fetchPriority={name === 'hero' ? 'high' : 'auto'} decoding="async" onError={() => setFailed(true)} />
-) : (
-<div className="artwork-placeholder" role="img" aria-label={`${name} illustration placeholder for Elaina`}>
-<div className="placeholder-sky"><span /><span /><span /></div>
-<div className="placeholder-sun" />
-<div className="placeholder-hill placeholder-hill-back" />
-<div className="placeholder-hill placeholder-hill-front" />
-<div className="placeholder-caption"><Sparkles size={14} /> Elaina illustration</div>
-</div>
-)}
-</div>
-);
-}
-//=================
-//=================
-function SectionLabel({ children }: { children: ReactNode }) {
-return <p className="section-label"><span />{children}</p>;
-}
-//=================
-function ProfileGfxLayers() {
-return <>
-<span className="profile-gfx-halo" />
-<span className="profile-gfx-slab profile-gfx-slab-a" />
-<span className="profile-gfx-slab profile-gfx-slab-b" />
-<span className="profile-gfx-slab profile-gfx-slab-c" />
-<span className="profile-gfx-slab profile-gfx-slab-d" />
-<span className="profile-gfx-facet profile-gfx-facet-a" />
-<span className="profile-gfx-facet profile-gfx-facet-b" />
-<span className="profile-gfx-orbit" />
-</>;
-}
-function CharacterBlockEffect({ className }: { className: string }) {
-return <div className={`profile-gfx-depth ${className}`} aria-hidden="true"><ProfileGfxLayers /></div>;
-}
-//=================
-function ProfileGfxArtwork() {
-const sceneRef = useRef<HTMLDivElement>(null);
-const { scrollYProgress } = useScroll({ target: sceneRef, offset: ['start end', 'end start'] });
-const backgroundY = useTransform(scrollYProgress, [0, 1], [18, -18]);
-const characterY = useTransform(scrollYProgress, [0, 1], [7, -7]);
-const foregroundY = useTransform(scrollYProgress, [0, 1], [-12, 12]);
-return (
-<div ref={sceneRef} className="profile-gfx-scene">
-<motion.div className="profile-gfx-depth" style={{ y: backgroundY }} aria-hidden="true">
-<ProfileGfxLayers />
-</motion.div>
-<motion.div className="profile-gfx-character" style={{ y: characterY }}>
-<Artwork name="profile" alt="Elaina profile illustration" className="profile-art" />
-</motion.div>
-<motion.div className="profile-gfx-foreground" style={{ y: foregroundY }} aria-hidden="true">
-<span className="profile-gfx-light-point profile-gfx-light-point-a" />
-<span className="profile-gfx-light-point profile-gfx-light-point-b" />
-</motion.div>
-<span className="art-note">A portrait of Elaina</span>
-</div>
-);
-}
-//=================
-const Navbar = memo(function Navbar() {
-const [active, setActive] = useState('splash');
-useEffect(() => {
-let frame = 0;
-const updateActiveSection = () => {
-frame = 0;
-if (activeNavigationTarget) {
-const navigationTarget = activeNavigationTarget;
-setActive((previous) => previous === navigationTarget ? previous : navigationTarget);
-return;
-}
-if (window.matchMedia('(min-width: 1101px)').matches) {
-const activeIndex = Math.min(sections.length - 1, Math.floor((window.scrollY + window.innerHeight * 0.5) / window.innerHeight));
-setActive((previous) => previous === sections[activeIndex].id ? previous : sections[activeIndex].id);
-return;
-}
-if (isMobileStoryLayout()) {
-let sectionStart = document.getElementById('splash')?.offsetHeight ?? window.innerHeight;
-let currentId = sections[0].id;
-for (const { id } of mobileStorySections) {
-if (window.scrollY + window.innerHeight * 0.4 < sectionStart) break;
-currentId = id;
-const section = document.getElementById(id);
-sectionStart += section?.offsetHeight ?? window.innerHeight;
-}
-setActive((previous) => previous === currentId ? previous : currentId);
-return;
-}
-const groupMarker = window.scrollY + window.innerHeight * 0.4;
 let groupStart = document.getElementById('splash')?.offsetHeight ?? window.innerHeight;
 let currentGroup = 'splash';
 for (const group of document.querySelectorAll<HTMLElement>('[data-mobile-page]')) {
@@ -991,7 +762,7 @@ return (
 Happy Birthday,<br /><em>Elaina!</em>
 </motion.h1>
 <motion.p className="hero-subtitle" data-reveal="" initial={{ opacity: 0, x: 40 }} animate={entered ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }} transition={{ duration: revealDurations.text, delay: heroOverlapDelays.supporting, ease }}>
-Since 2020, your journey has stayed with me. I made this little page just for you. ♡
+A little birthday page for my favourite wandering witch. ♡
 </motion.p>
 <motion.button type="button" className="text-link" data-reveal="" onClick={() => scrollToSection('elaina')} initial={{ opacity: 0, y: 25 }} animate={entered ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }} transition={{ duration: revealDurations.text, delay: heroOverlapDelays.link, ease }}>
 Explore the page <ArrowRight size={16} />
@@ -1016,7 +787,7 @@ return (
 <div className="profile-copy">
 <Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>THE ASHEN WITCH</SectionLabel></Reveal>
 <Reveal technique="mask" delay={entrance.heading}><h2>Sou, <em>watashi desu!</em></h2><p className="eyebrow">THE CUTEST WITCH? OBVIOUSLY.</p></Reveal>
-<Reveal delay={entrance.supporting} from="right"><p className="body-copy">A bookworm who became a witch to follow the stories she loved. Curious, proud, and just a little too sure of herself—that’s Elaina. ♡</p></Reveal>
+<Reveal delay={entrance.supporting} from="right"><p className="body-copy">Raised on Nike’s travel stories, she set out to see the world. Curious, sharp-tongued, and just a little proud—that’s Elaina. ♡</p></Reveal>
 <Reveal className="profile-footnote" delay={entrance.ornament} kind="ornament"><span>✳</span><span>Yappari, Elaina ga ichiban! </span></Reveal>
 </div>
 <span className="section-number">02 / 06</span>
@@ -1025,7 +796,7 @@ return (
 });
 //=================
 const chapters = [
-{ number: 'I', title: 'The journeys', text: "Inspired by Nike's stories, she set off to see the world herself.", art: 'journeyOne' as const, alt: 'Elaina on the open road' },
+{ number: 'I', title: 'The journeys', text: "Inspired by Nike’s travel tales, she set out to explore the world.", art: 'journeyOne' as const, alt: 'Elaina on the open road' },
 { number: 'II', title: 'Elaina herself', text: "A little pride, a sharp tongue, and a heart she doesn't always show.", art: 'journeyTwo' as const, alt: 'Elaina discovering a new place' },
 ];
 //=================
@@ -1037,7 +808,7 @@ return (
 <div className="section-heading">
 <Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>FROM MAJO NO TABITABI</SectionLabel></Reveal>
 <Reveal technique="mask" delay={entrance.heading}><h2>Elaina's <em>world</em></h2></Reveal>
-<Reveal delay={entrance.supporting}><p>Tabi no saki de, mata hitotsu no monogatari.</p></Reveal>
+<Reveal delay={entrance.supporting}><p>Tabi no saki ni, mata hitotsu no monogatari.</p></Reveal>
 </div>
 <div className="journey-route" aria-hidden="true"><span /><i /><span /></div>
 <div className="chapter-grid">
@@ -1054,7 +825,7 @@ return (
 <Reveal className="chapter-caption" delay={0.88 + index * 0.18}><span className="chapter-number">{chapter.number}</span><div><h3>{chapter.title}</h3><p>{chapter.text}</p></div><Reveal className="chapter-star" delay={0.32 + index * 0.16} kind="ornament"><span>✳</span></Reveal></Reveal>
 </div>)}
 </div>
-<footer className="site-footer"><span>© Kagenou · Elaina e, omedetou ♡</span></footer>
+<footer className="site-footer"><span>© Kagenou · Tanjoubi omedetou, Elaina ♡</span></footer>
 <span className="section-number">06 / 06</span>
 </section>
 );
@@ -1068,8 +839,8 @@ return (
 <div className="letter-copy"><Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>FROM KAGENOU, WITH LOVE</SectionLabel></Reveal><Reveal technique="mask" delay={entrance.heading}><h2>Dear <em>Elaina</em></h2></Reveal>
 <div className="letter-text">
 <Reveal delay={0.82} from="right"><p>Dear Elaina,</p></Reveal>
-<Reveal delay={0.94} from="right"><p>Happy birthday! I'm glad Majo no Tabitabi brought your story into my life.</p></Reveal>
-<Reveal delay={1.06} from="right"><p>Been following your journey since 2020. I made this little page just to say: arigatou, Elaina. ♡</p></Reveal>
+<Reveal delay={0.94} from="right"><p>Happy birthday! I’m so glad Majo no Tabitabi introduced me to you.</p></Reveal>
+<Reveal delay={1.06} from="right"><p>I’ve followed your adventures since 2020, and I made this little page to say arigatou. ♡</p></Reveal>
 <Reveal delay={1.3} from="right"><p className="letter-signoff">— Kagenou</p></Reveal>
 </div>
 </div>
@@ -1087,7 +858,7 @@ return (
 <div className="finale-copy">
 <Reveal technique="eyebrow" delay={entrance.eyebrow}><SectionLabel>OTANJOUBI OMEDETOU</SectionLabel></Reveal>
 <Reveal technique="mask" delay={entrance.heading}><h2>Keep wandering,<br /><em>Elaina.</em></h2></Reveal>
-<Reveal className="finale-message" delay={entrance.supporting}><p>Kore kara mo, ii tabi o.</p><p>May there always be another story waiting down the road. ♡</p></Reveal>
+<Reveal className="finale-message" delay={entrance.supporting}><p>Kore kara mo, suteki na tabi o.</p><p>May there always be another story waiting down the road. ♡</p></Reveal>
 </div>
 <Reveal className="finale-art-wrap" from="left" kind="image" delay={0.5}>
 <div className="finale-gfx-slashes" aria-hidden="true"><i /><i /><i /><i /><i /></div>
@@ -1105,9 +876,9 @@ return (
 <SectionAtmosphere variant="keepsake" />
 <SectionDoodles variant="keepsake" />
 <div className="letter-copy keepsake-copy">
-<Reveal technique="eyebrow" delay={entrance.eyebrow} from="left"><SectionLabel>CHIISANA PRESENTO</SectionLabel></Reveal>
+<Reveal technique="eyebrow" delay={entrance.eyebrow} from="left"><SectionLabel>CHIISANA OKURIMONO</SectionLabel></Reveal>
 <Reveal technique="mask" delay={entrance.heading} from="left"><h2>A little gift, <em>just for you.</em></h2></Reveal>
-<Reveal delay={entrance.supporting} from="left"><p className="body-copy">A birthday wish felt too small, so I made you this little corner of the internet. ♡</p></Reveal>
+<Reveal delay={entrance.supporting} from="left"><p className="body-copy">A birthday message felt too small, so I made this little page for you. ♡</p></Reveal>
 <Reveal className="profile-footnote" delay={entrance.ornament} kind="ornament"><span>✳</span><span>Kagenou yori, kokoro o komete.</span></Reveal>
 </div>
 <Reveal className="keepsake-art-column" from="right" kind="image" delay={entrance.image}>
